@@ -3,6 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  var person = {
+    name: "Nafis Chowdhury",
+    job: "student",
+    location:"Santa Ana"
+  }
+
+  var style = {
+    color:'goldenrod',
+    backgroundColor:'slateblue'
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -16,7 +26,9 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          <h1 style={style}>{person.name + " " + person.job}</h1>
+          <h3 style={{backgroundColor:'cyan', color:'yellow'}}>{person.location}</h3>
+        <p>My First React Project</p>
         </a>
       </header>
     </div>
