@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const students = ["Rafid", "Tamim"];
+  const students = ['Rafid', 'Tamim', 'Jasim', 'Saddam'];
   const products = [{name: 'Photoshop', price: '$99.99'},
                     {name: 'Illustrator', price: '$59.99'},
                     {name: 'Adobe XD', price: '$79.99'}]
+
   var person = {
     name: "Nafis Chowdhury",
     job: "student",
@@ -24,6 +25,19 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <Counter></Counter>
+        <User></User>
+        <ul>
+          {
+            students.map(student => <li>{student}</li>)
+          }
+          {
+            products.map(pds => <li>{pds.name}</li>)
+          }
+        </ul>
+          {
+            products.map(pd => <Product product = {pd}></Product>)
+          }
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -61,6 +75,39 @@ function Person(props){
 }
 
 
+function User(){
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => res.json())
+    .then(data => setUsers(data));
+  }, [])
+  return (
+    <div>
+      <h3>Dynamic User {users.length}</h3>
+      <ol>
+        {
+          users.map(user => <li>{user.name}</li>)
+        }
+      </ol>
+    </div>
+  )
+}
+
+
+function Counter(){
+  const [count, setCount] = useState(10);
+  const handleIncrease = () => setCount(count + 1);
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick = {() => setCount(count - 1)}>Decrease</button>
+      <button onClick = {() => setCount(count + 1)}>Increase</button>
+    </div>
+  )
+}
+
+
 function Product(props){
   const productStyle = {
     color: 'lightsalmon',
@@ -73,6 +120,7 @@ function Product(props){
   }
 
   const {name, price} = props.product;
+
   return (
     <div style = {productStyle}>
       <h3>{name}</h3>
